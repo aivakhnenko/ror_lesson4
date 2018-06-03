@@ -21,8 +21,6 @@ class Main
   end
 
   def start
-
-
     puts "\nWelcome to the Railroad Cockpit\n"
 
     show_commands_list
