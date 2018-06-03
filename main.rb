@@ -12,7 +12,6 @@ class Main
     @stations = []
     @routes   = []
     @trains   = []
-    @show_commands_list_flag = true
     @show_info_for_object = {}
     @show_info_for_object[:station] = Proc.new { |station, index| puts "ID #{index}: Station #{station.name}" }
     @show_info_for_object[:route]   = Proc.new { |route,   index| puts "ID #{index}: Route from #{route.first_station.name} to #{route.last_station.name}" }
@@ -33,8 +32,6 @@ class Main
   end
 
   private
-
-  # Only constructor and start method are public for user interface class
 
   attr_reader :stations, :routes, :trains, :show_info_for_object
 
@@ -108,7 +105,13 @@ class Main
   def add_route
     first_station = ask_user_to_select_station(stations, "Select first station:")
     last_station  = ask_user_to_select_station(stations, "Select last station:") if first_station
-    @routes << Route.new(first_station, last_station) if first_station && last_station
+    if first_station && last_station
+      if first_station == last_station
+        puts "Last station cannot be equal to first station"
+      else
+        @routes << Route.new(first_station, last_station)
+      end
+    end
   end
 
   def add_station_to_route

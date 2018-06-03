@@ -14,7 +14,7 @@ class Route
   end
 
   def add_station(station)
-    @stations.insert(-2, station)
+    @stations.insert(-2, station) unless stations.include?(station)
   end
 
   def del_station(station)
